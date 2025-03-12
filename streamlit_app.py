@@ -8,6 +8,7 @@ st.title("Cotizador de Rutas")
 st.write("Reglas a recordar:")
 st.write("Nuestra utilidad objetivo es 35%. Se cumple este objetivo a cotizar al menos $39 por km")
 st.write("Nunca cotizar abajo de $25 por km. Nos generaria una perdida")
+st.write("---")
 
 # User inputs
 kilometraje = st.number_input("Ingresa el kilometraje de la ruta:", min_value=1, step=1)
