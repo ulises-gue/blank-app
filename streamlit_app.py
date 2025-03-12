@@ -26,14 +26,13 @@ if dolares == "No":
 
 else:
     sugerir_precio = st.radio("¿Tienes algún precio en mente?", ("No", "Sí"))
+    tipo_de_cambio = st.number_input("Ingresa el tipo de cambio:", min_value=0.0, step=0.01)
     if sugerir_precio == "No":
         precio_por_km = st.number_input("Ingresa el precio por kilómetro deseado:", min_value=0.0, step=0.1)
         precio_mxn = precio_por_km * kilometraje
-        tipo_de_cambio = st.number_input("Ingresa el tipo de cambio:", min_value=0.0, step=0.01)
         prcio_usd = precio_mxn / tipo_de_cambio
     else:
         precio_usd = st.number_input("Ingresa el precio deseado:", min_value=0.0, step=0.1)
-        tipo_de_cambio = st.number_input("Ingresa el tipo de cambio:", min_value=0.0, step=0.01)
         precio_mxn = precio_usd * tipo_de_cambio
         precio_por_km = precio_mxn / kilometraje
 
