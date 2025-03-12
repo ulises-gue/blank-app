@@ -12,50 +12,47 @@ st.write("---")
 
 # User inputs
 kilometraje = st.number_input("Ingresa el kilometraje de la ruta:", min_value=1, step=1)
-dolares = st.radio("¿Deseas cotizar en dólares?", ["no", "si"])
 
-sugerir_precio = st.radio("¿Tienes algún precio en mente?", ["no", "si"])
+dolares = st.radio("¿Deseas cotizar en dólares?", ("No", "Sí"))
 
-if sugerir_precio == "no":
-    precio_por_km = st.number_input("Ingresa el precio por kilómetro deseado:", min_value=0.0, step=0.1)
-    precio_mxn = precio_por_km * kilometraje
-    
-    if dolares == "si":
-        tipo_de_cambio = st.number_input("Ingresa el tipo de cambio:", min_value=0.0, step=0.01)
-        precio_usd = precio_mxn / tipo_de_cambio
-        precio_final = precio_usd
-        moneda = "USD"
+if dolares == "No":
+    sugerir_precio = st.radio("¿Tienes algún precio en mente?", ("No", "Sí"))
+    if sugerir_precio == "No":
+        precio_por_km = st.number_input("Ingresa el precio por kilómetro deseado:", min_value=0.0, step=0.1)
+        precio_mxn = precio_por_km * kilometraje
     else:
-        precio_final = precio_mxn
-        moneda = "MXN"
-    
+        precio_mxn = st.number_input("Ingresa el precio deseado:", min_value=0.0, step=0.1)
+        precio_por_km = precio_mxn / kilometraje
+
 else:
-    precio_final = st.number_input("Ingresa el precio deseado:")
-    precio_por_km = precio_final / kilometraje
-    
-    if dolares == "si":
-        tipo_de_cambio = st.number_input("Ingresa el tipo de cambio:", min_value=0.0, step=0.01)
-        precio_mxn = precio_final * tipo_de_cambio
+    sugerir_precio = st.radio("¿Tienes algún precio en mente?", ("No", "Sí"))
+    if sugerir_precio == "No":
+        precio_por_km = st.number_input("Ingresa el precio por kilómetro deseado:", min_value=0.0, step=0.1)
+        precio_mxn = precio_por_km * kilometraje
     else:
-        precio_mxn = precio_final
+        precio_usd = st.number_input("Ingresa el precio deseado:", min_value=0.0, step=0.1)
+        tipo_de_cambio = st.number_input("Ingresa el tipo de cambio:", min_value=0.0, step=0.01)
+        precio_mxn = precio_usd * tipo_de_cambio
+        precio_por_km = precio_mxn / kilometraje
 
-# Calculate margin
+# Calculate profit margin
 margen_utilidad = (precio_mxn - (kilometraje * costo_por_km)) / precio_mxn
 
 # Function to determine color
 def get_color(margen):
     if margen < 0:
-        return "#FF4C4C"  # Red
+        return "red"
     elif 0 <= margen < 0.35:
-        return "#D4A017"  # Darker Yellow
+        return "yellow"
     else:
-        return "#28A745"  # Green
+        return "green"
 
 # Display results
-st.markdown(f"### El precio total es: **${precio_final:,.2f} {moneda}**")
-st.markdown(
-    f"<p style='color:{get_color(margen_utilidad)}; font-size:24px; font-weight:bold;'>"
-    f"La utilidad es: {margen_utilidad:.2%}</p>",
-    unsafe_allow_html=True
-)
+st.write(f"**El precio total es:** ${precio_mxn:,.2f} MXN")
+st.write(f"**El precio por kilómetro es:** ${precio_por_km:,.2f}")
+
+# Apply color styling
+color = get_color(margen_utilidad)
+st.markdown(f"<p style='color:{color}; font-size:24px; font-weight:bold;'>La utilidad es: {margen_utilidad:.2%}</p>", unsafe_allow_html=True)
+
 st.write("---")
