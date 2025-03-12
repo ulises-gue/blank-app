@@ -40,7 +40,7 @@ else:
     if sugerir_precio == "No":
         precio_por_km = st.number_input("Ingresa el precio por kilómetro deseado:", min_value=0.0, step=0.1)
         precio_mxn = precio_por_km * kilometraje
-        precio_usd = precio_mxn / tipo de cambio
+        precio_usd = precio_mxn / tipo_de_cambio
         st.write(f"**El precio total es:** ${precio_usd:,.2f} USD")
     else:
         precio_usd = st.number_input("Ingresa el precio deseado:", min_value=0.0, step=0.1)
