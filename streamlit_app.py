@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Border Freight - Cotizador de Rutas")
+st.title("Cotizador de Rutas")
 # Fixed cost per km
 costo_por_km = 25.3  
 
