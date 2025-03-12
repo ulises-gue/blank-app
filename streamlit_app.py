@@ -45,11 +45,11 @@ margen_utilidad = (precio_mxn - (kilometraje * costo_por_km)) / precio_mxn
         
 def get_color(margen):
     if margen < 0:
-        return "red"
+        return "#FF4C4C" 
     elif 0 <= margen < 0.35:
-        return "yellow"
+        return "#D4A017" 
     else:
-        return "green"
+        return "#28A745"  
 
 # Display results
 
