@@ -51,7 +51,7 @@ def get_color(margen):
 if dolares == "No":
     st.write(f"**El precio total es:** ${precio_mxn:,.2f} MXN")
 else:
-    st.write(f"**El precio total es:** ${precio_usd:,.2f} MXN")
+    st.write(f"**El precio total es:** ${precio_usd:,.2f} USD")
 st.write(f"**El precio por kilómetro es:** ${precio_por_km:,.2f}")
 
 # Apply color styling
