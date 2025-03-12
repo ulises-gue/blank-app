@@ -1,12 +1,5 @@
 import streamlit as st
 
-col1, col2 = st.columns([1, 4])  # Adjust width ratio as needed
-
-with col1:
-    st.image("logo-BF.png", width=100)  # Adjust width as needed
-
-with col2:
-    st.title("Cotizador de Rutas")
 # Fixed cost per km
 costo_por_km = 25.3  
 
