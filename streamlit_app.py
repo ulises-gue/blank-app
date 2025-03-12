@@ -40,7 +40,7 @@ else:
         precio_mxn = precio_final
 
 # Calculate margin
-margen_utilidad = (precio_mxn - (kilometraje * COSTO_POR_KM)) / precio_mxn
+margen_utilidad = (precio_mxn - (kilometraje * costo_por_km)) / precio_mxn
 
 # Function to determine color
 def get_color(margen):
