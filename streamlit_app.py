@@ -54,7 +54,14 @@ if file_available == "Si":
                                      ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Saltillo")) |
                                      ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Matamoros")), "Salida",
                                      np.where((route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Origen"] == "Reynosa"), "Salida", "Retorno"))
-        st.dataframe(route_data)
+
+        #We will add the price column that will multiply the distance by the price per km 
+        route_data["Perecio MXN"] = np.where(((route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Sentido"] == "Salida"), route_data["Distancia] * TCS_price),
+                                              np.where((route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Sentido"] == "Retorno"), route_data["Distancia] * TCR_price),
+                                                       np.where((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Sentido"] == "Salida"), route_data["Distancia] * TLS_price),
+                                                                np.where((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Sentido"] == "Retorno"), route_data["Distancia] * TLR_price))
+                                                       
+        
     
 
         
