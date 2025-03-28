@@ -11,7 +11,7 @@ st.write("Nunca cotizar abajo de $25 por km. Nos generaria una perdida")
 st.write("---")
 
 # Fixed cost per km
-costo_por_km = 25.3  
+costo_por_km = 25.5 
 
 # User inputs
 kilometraje = st.number_input("Ingresa el kilometraje de la ruta:", min_value=1, step=1)
