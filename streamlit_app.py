@@ -42,7 +42,7 @@ if file_available == "Si":
         #We will create the route column which will join the origin and destination columns 
         route_data["Ruta"] = route_data["Origen"] + " - " + route_data["Destino"]
         #We will cretae the distance column
-        route_data["Distancia"] = routes.apply(lambda row: get_distance_km(row["Origen"], row["Destino"]), axis=1)
+        route_data["Distancia"] = route_data.apply(lambda row: get_distance_km(row["Origen"], row["Destino"]), axis=1)
         #We will create the price column
         st.dataframe(route_data)
         
