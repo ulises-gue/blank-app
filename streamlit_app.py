@@ -90,9 +90,9 @@ if file_available == "Si":
         route_data["Precio MXN Plataforma"] = np.select(conditions, price_values_pf, default=0)
         
         cotizacion = pd.DataFrame(route_data, columns = ["Ruta", "Precio MXN Quinta", "Precio MXN Camion Corto", "Precio MXN Plataforma"])
-        cotizacion["Precio MXN Quinta"].apply(lambda x: f"{x:,.2f}")
-        cotizacion["Precio MXN Camion Corto"].apply(lambda x: f"{x:,.2f}")
-        cotizacion["Precio MXN Camion Corto"].apply(lambda x: f"{x:,.2f}")
+        cotizacion["Precio MXN Quinta"] = cotizacion["Precio MXN Quinta"].apply(lambda x: f"{x:,.2f}")
+        cotizacion["Precio MXN Camion Corto"] = cotizacion["Precio MXN Camion Corto"].apply(lambda x: f"{x:,.2f}")
+        cotizacion["Precio MXN Plataforma"] = cotizacion["Precio MXN Plataforma"].apply(lambda x: f"{x:,.2f}")
         st.dataframe(cotizacion)
 
 
