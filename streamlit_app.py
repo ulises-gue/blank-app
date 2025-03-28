@@ -33,18 +33,30 @@ if file_available == "Si":
         st.dataframe(route_data)
         st.write("---")
         st.write('<h2 style="color:#c4500b;">Cotizacion de Rutas:</h2>', unsafe_allow_html=True)
-        TCS_price = st.number_input("Ingresa un Precio por KM para Salidas Tramo Corto ($50 - $70):")
-        TCR_pirce = st.number_input("Ingresa un Precio por KM para Retornos Tramo Corto ($40 - $56):")
-        TLS_price = st.number_input("Ingresa un Precio por KM para Salidas Tramo Largo ($30 - $38):")
-        TLR_price = st.number_input("Ingresa un Precio por KM para Retornos Tramo Largo ($38 - $46):")
+        #We will ask the user to input price per km for different routes
+        TCS_price = st.number_input("Ingresa un Precio por KM para Salidas Tramo Corto (50 - 70):")
+        TCR_pirce = st.number_input("Ingresa un Precio por KM para Retornos Tramo Corto (40 - 56):")
+        TLS_price = st.number_input("Ingresa un Precio por KM para Salidas Tramo Largo (30 - 38):")
+        TLR_price = st.number_input("Ingresa un Precio por KM para Retornos Tramo Largo (38 - 46):")
+        
         #We will fill any null values in the frequency column with a 1
         route_data["Frequencia (Mensual)"] = route_data["Frequencia (Mensual)"].fillna(1)
         #We will create the route column which will join the origin and destination columns 
         route_data["Ruta"] = route_data["Origen"] + " - " + route_data["Destino"]
         #We will cretae the distance column
         route_data["Distancia"] = route_data.apply(lambda row: get_distance_km(row["Origen"], row["Destino"]), axis=1)
-        #We will create the price column
+        
+        #We will create the route type column 
+        route_data["Tipo de Ruta"] = np.where(route_data["Distancia"] <= 400, "Tramo Corto", "Tramo Largo")
+        #We will create the dircetion column
+        route_data["Sentido"] = np.where(((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Reynosa")) |
+                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Monterrey")) |
+                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Saltillo")) |
+                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Matamoros")), "Salida",
+                                     np.where((route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Origen"] == "Reynosa"), "Salida", "Retorno"))
         st.dataframe(route_data)
+    
+
         
             
         
