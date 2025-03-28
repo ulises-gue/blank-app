@@ -4,7 +4,7 @@ import numpy as np
 import googlemaps
 
 # Fixed cost per km
-cost_oer_km = 25.5
+cost_per_km = 25.5
 
 # Title
 st.title("Border Freight - Cotizador de Rutas")
@@ -94,6 +94,26 @@ if file_available == "Si":
         cotizacion["Precio MXN Camion Corto"] = cotizacion["Precio MXN Camion Corto"].apply(lambda x: f"{x:,.2f}")
         cotizacion["Precio MXN Plataforma"] = cotizacion["Precio MXN Plataforma"].apply(lambda x: f"{x:,.2f}")
         st.dataframe(cotizacion)
+
+        st.write('<h2 style="color:#c4500b;">Cotizacion de Rutas:</h2>', unsafe_allow_html=True)
+        route_data["Utilidad (%)"] = ((route_data["Precio MXN Quinta"] - (route_data["Distancia"] * cost_per_km))/route_data["Precio MXN Quinta"])*100
+        route_data["Utilidad (%)"] = route_data["Utilidad (%)"]. round(2)
+
+         route_data["Evaluacion"] = np.where(((route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Sentido"]  == "Retorno") & (route_data["Utilidad (%)"] >= 36)), "Si",
+                                        np.where(((route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Sentido"] == "Salida") & (route_data["Utilidad (%)"] >= 49)), "Si",
+                                                 np.where(((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Sentido"] == "Salida") & (route_data["Utilidad (%)"] >= 15)), "Si",
+                                                          np.where(((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Sentido"] == "Retorno") & (route_data["Utilidad (%)"] >= 33)), "Si", "No"))))
+        precio_km_values = [
+                TCS_price,
+                TCR_price,
+                TLS_price,
+                TLR_price,
+            ]
+        route_data["Precio por KM"] = np.select(conditions, precio_km_values, default=0)
+        evaluation = pd.DataFrame(soute_data, columns = ["Ruta", "Tipo de Ruta", "Sentido", "Precio MXN Quinta", "Precio por KM", "Utilidad (%)", "Evaluacion"])
+        
+
+        
 
 
 
