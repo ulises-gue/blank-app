@@ -22,5 +22,5 @@ def get_distance_km(origin, destination):
     except Exception as e:
         return None  # You could show a warning in Streamlit if needed
 
-file_available = st.radio("Tienes un archivo de rutas?, ("Si", "No"))
+file_available = st.radio("Tienes un archivo de rutas?", ("Si", "No"))
 
