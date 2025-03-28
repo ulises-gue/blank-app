@@ -28,7 +28,16 @@ if file_available == "Si":
     uploaded_file = st.file_uploader("Sube la contrapropuesta del cliente:", type = ["xlsx"], key = "file1")
     if uploaded_file is not None:
         route_data = pd.read_excel(uploaded_file, header = 1)
+        st.write("---")
         st.write('<h2 style="color:#c4500b;">Archivo cargado:</h2>', unsafe_allow_html=True)
         st.dataframe(route_data)
+        st.write("---")
+        st.write('<h2 style="color:#c4500b;">Cotizacion de Rutas:</h2>', unsafe_allow_html=True)
+        TCS_price = st.number_input("Ingresa un Precio por KM para Salidas Tramo Corto")
+        TCR_pirce
+        TLS_price
+        TLR_price
+        
+        
          
 
