@@ -71,7 +71,34 @@ if file_available == "Si":
             ]
             
             # Assign calculated prices
-        route_data["Precio MXN"] = np.select(conditions, price_values, default=0)
+        route_data["Precio MXN Quinta"] = np.select(conditions, price_values, default=0)
+
+        price_values_cc = [
+                route_data["Distancia"] * (TCS_price - 4),
+                route_data["Distancia"] * (TCR_price - 4),
+                route_data["Distancia"] * (TLS_price - 4),
+                route_data["Distancia"] * (TLR_price - 4),
+            ]
+        route_data["Precio MXN Camion Corto"] = np.select(conditions, price_values_cc, default=0)
+        
+        price_values_pf = [
+                route_data["Distancia"] * (TCS_price + 4),
+                route_data["Distancia"] * (TCR_price + 4),
+                route_data["Distancia"] * (TLS_price + 4),
+                route_data["Distancia"] * (TLR_price + 4),
+            ]
+        route_data["Precio MXN Plataforma"] = np.select(conditions, price_values_pf, default=0)
+        
+        cotizacion = pd.DataFrame(route_data, columns["Ruta", "Precio MXN Quinta", "Precio MXN Camion Corto", "Precio MXN Plataforma")
+        st.dataframe(cotizacion)
+
+
+
+
+
+
+
+        
                 
 
         
