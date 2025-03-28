@@ -34,9 +34,9 @@ if file_available == "Si":
         st.write("---")
         st.write('<h2 style="color:#c4500b;">Cotizacion de Rutas:</h2>', unsafe_allow_html=True)
         TCS_price = st.number_input("Ingresa un Precio por KM para Salidas Tramo Corto")
-        TCR_pirce
-        TLS_price
-        TLR_price
+        TCR_pirce = st.number_input("Ingresa un Precio por KM para Retornos Tramo Corto")
+        TLS_price = st.number_input("Ingresa un Precio por KM para Salidas Tramo Largo")
+        TLR_price = st.number_input("Ingresa un Precio por KM para Retornos Tramo Largo")
         
         
          
