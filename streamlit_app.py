@@ -89,7 +89,7 @@ if file_available == "Si":
             ]
         route_data["Precio MXN Plataforma"] = np.select(conditions, price_values_pf, default=0)
         
-        cotizacion = pd.DataFrame(route_data, columns["Ruta", "Precio MXN Quinta", "Precio MXN Camion Corto", "Precio MXN Plataforma")
+        cotizacion = pd.DataFrame(route_data, columns["Ruta", "Precio MXN Quinta", "Precio MXN Camion Corto", "Precio MXN Plataforma"])
         st.dataframe(cotizacion)
 
 
