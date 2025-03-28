@@ -95,6 +95,7 @@ if file_available == "Si":
         cotizacion["Precio MXN Plataforma"] = cotizacion["Precio MXN Plataforma"].apply(lambda x: f"{x:,.2f}")
         st.dataframe(cotizacion)
 
+        st.write("---")
         st.write('<h2 style="color:#c4500b;">Cotizacion de Rutas:</h2>', unsafe_allow_html=True)
         route_data["Utilidad (%)"] = ((route_data["Precio MXN Quinta"] - (route_data["Distancia"] * cost_per_km))/route_data["Precio MXN Quinta"])*100
         route_data["Utilidad (%)"] = route_data["Utilidad (%)"]. round(2)
@@ -110,7 +111,11 @@ if file_available == "Si":
                 TLR_price,
             ]
         route_data["Precio por KM"] = np.select(conditions, precio_km_values, default=0)
-        evaluation = pd.DataFrame(route_data, columns = ["Ruta", "Tipo de Ruta", "Sentido", "Precio MXN Quinta", "Precio por KM", "Utilidad (%)", "Evaluacion"])
+        evaluation = pd.DataFrame(route_data, columns = ["Ruta", "Tipo de Ruta", "Sentido","Distancia", "Precio MXN Quinta", "Precio por KM", "Utilidad (%)", "Evaluacion"])
+        evaluation["Distancia"] = evaluation["Distancia"].apply(lambda x: f"{x:,.2f}")
+        evaluation["Precio MXN Quinta"] = evaluation["Precio MXN Quinta"].apply(lambda x: f"{x:,.2f}")
+        evaluation["Precio por KM"] = evaluation["Precio por KM"].apply(lambda x: f"{x:,.2f}")
+        st.dataframe(evaluation)
         
 
         
