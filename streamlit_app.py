@@ -24,3 +24,11 @@ def get_distance_km(origin, destination):
 
 file_available = st.radio("Tienes un archivo de rutas?", ("Si", "No"))
 
+if file_available == "Si":
+    uploaded_file = st.file_uploader("Sube la contrapropuesta del cliente:", type = ["xlsx"], key = "file1")
+    if uploaded_file is not None:
+        route_data = pd.read_excel(uploaded_file, header = 1)
+        st.write('<h2 style="color:#c4500b;">Archivo cargado:</h2>', unsafe_allow_html=True)
+        st.dataframe(route_data)
+         
+
