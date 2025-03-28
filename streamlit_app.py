@@ -110,7 +110,7 @@ if file_available == "Si":
                 TLR_price,
             ]
         route_data["Precio por KM"] = np.select(conditions, precio_km_values, default=0)
-        evaluation = pd.DataFrame(soute_data, columns = ["Ruta", "Tipo de Ruta", "Sentido", "Precio MXN Quinta", "Precio por KM", "Utilidad (%)", "Evaluacion"])
+        evaluation = pd.DataFrame(route_data, columns = ["Ruta", "Tipo de Ruta", "Sentido", "Precio MXN Quinta", "Precio por KM", "Utilidad (%)", "Evaluacion"])
         
 
         
