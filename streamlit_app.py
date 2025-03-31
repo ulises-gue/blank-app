@@ -96,7 +96,7 @@ if file_available == "Si":
         st.dataframe(cotizacion)
 
         st.write("---")
-        st.write('<h2 style="color:#c4500b;">Cotizacion de Rutas:</h2>', unsafe_allow_html=True)
+        st.write('<h2 style="color:#c4500b;">Evaluacion de Rutas:</h2>', unsafe_allow_html=True)
         route_data["Utilidad (%)"] = ((route_data["Precio MXN Quinta"] - (route_data["Distancia"] * cost_per_km))/route_data["Precio MXN Quinta"])*100
         route_data["Utilidad (%)"] = route_data["Utilidad (%)"]. round(2)
 
