@@ -8,9 +8,9 @@ cost_per_km = 25.5
 
 # Title
 st.title("Border Freight - Cotizador de Rutas")
-st.write("---")
 st.write("Esta aplicacion esta diseñada para la generacion de precios.")
 st.write("Puedes subir un archivo en el template diseñado o cotizar una ruta individual.")
+st.write("---")
 
 # Initialize Google Maps client using Streamlit secrets
 gmaps = googlemaps.Client(key=st.secrets["GOOGLE_MAPS_API_KEY"])
