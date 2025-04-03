@@ -53,23 +53,23 @@ if file_available == "Si":
         #We will create the route type column 
         route_data["Tipo de Ruta"] = np.where(route_data["Distancia"] <= 400, "Tramo Corto", "Tramo Largo")
         #We will create the dircetion column
-        route_data["Sentido"] = np.where(((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Reynosa")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Monterrey")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Saltillo")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Matamoros")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Reynosa, TAM")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Monterrey, NLE")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Saltillo, COA")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Matamoros, TAM"))|
-                                     (((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Ramos Arizpe, COA")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Monclova, COA")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Apodaca, NLE")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Santa Catarina, NLE")) |
-                                     (((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Guadalupe, NLE")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Cienega de Flores, NLE")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Nuevo Laredo, TAM")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Ciudad Juarez, CHH"))), "Salida",
-                                     np.where((route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Origen"] == "Reynosa"), "Salida", "Retorno"))
+        route_data["Sentido"] = np.where(
+            (
+                ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"].isin([
+                    "Reynosa", "Monterrey", "Saltillo", "Matamoros",
+                    "Reynosa, TAM", "Monterrey, NLE", "Saltillo, COA", "Matamoros, TAM",
+                    "Ramos Arizpe, COA", "Monclova, COA", "Apodaca, NLE",
+                    "Santa Catarina, NLE", "Guadalupe, NLE", "Cienega de Flores, NLE",
+                    "Nuevo Laredo, TAM", "Ciudad Juarez, CHH"
+                ])))
+            ),
+            "Salida",
+            np.where(
+                (route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Origen"] == "Reynosa"),
+                "Salida",
+                "Retorno"
+            )
+        )
 
         conditions = [
                 (route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Sentido"] == "Salida"),
