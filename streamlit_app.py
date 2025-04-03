@@ -68,7 +68,7 @@ if file_available == "Si":
                                      (((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Guadalupe, NLE")) |
                                      ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Cienega de Flores, NLE")) |
                                      ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Nuevo Laredo, TAM")) |
-                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Ciudad Juarez, CHH")), "Salida",
+                                     ((route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Origen"] == "Ciudad Juarez, CHH"))), "Salida",
                                      np.where((route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Origen"] == "Reynosa"), "Salida", "Retorno"))
 
         conditions = [
