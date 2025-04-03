@@ -5,6 +5,8 @@ import googlemaps
 
 # Fixed cost per km
 cost_per_km = 25.5
+avg_monthly_km = 1100000
+monthly_kpi = 1380189.67
 
 # Title
 st.title("Border Freight - Cotizador de Rutas")
@@ -118,6 +120,31 @@ if file_available == "Si":
         evaluation["Precio MXN Quinta"] = evaluation["Precio MXN Quinta"].apply(lambda x: f"{x:,.2f}")
         evaluation["Precio por KM"] = evaluation["Precio por KM"].apply(lambda x: f"{x:,.2f}")
         st.dataframe(evaluation)
+
+        route_data["Distancia Mensual"] = route_data["Frequencia (Mensual)"] * route_data["Distancia"]
+        route_data["Facturacion Mensual"] = route_data["Frequencia (Mensual)"] * route_data["Precio MXN Quinta"]
+        route_data["Costo Mensual"] = route_data["Distancia Mensual"] * cost_per_km
+
+        total_distance = route_data["Distancia Mensual"].sum()
+        revenue = route_data["Facturacion Mensual"].sum()
+        costs = route_data["Costo Mensual"].sum()
+        total_profit = (revenue - costs) / revenue
+
+        st.write('<b>Kilometros Mensuales de Operacion Cotizada:</b>', f"{total_distance:,.2f}", unsafe_allow_html=True)
+        st.write('<b>Facturacion Mensual de Operacion Cotizada:</b>', f"{revenue:,.2f}", unsafe_allow_html=True)
+        st.write('<b>Utlidad de Operacion Cotizada:</b>', f"{total_profit:.2%}", unsafe_allow_html=True)
+        st.write('<b>Promedio de Kilometros Mensuales:</b>', f"{avg_monthly_km:,.2f}", unsafe_allow_html=True)
+          
+        km_mensual_new = total_distance + avg_monthly_km
+        st.write('<b>Kilometros Mensuales + Nueva Operacion:</b>', f"{km_mensual_new:,.2f}", unsafe_allow_html=True)
+        per_increase = ((km_provided + avg_monthly_km) - avg_monthly_km) / avg_monthly_km
+        st.write('<b>Porcentaje de Incremento:</b>', f"{per_increase:.2%}", unsafe_allow_html=True)
+          
+        st.write('<b>KPI Mensual:</b>', f"{monthly_kpi:,.2f}", unsafe_allow_html=True)
+          
+        difference = km_mensual_new - monthly_kpi
+        st.write('<b>Diferencia:</b>', f"{difference:,.2f}", unsafe_allow_html=True)
+        
         
 
         
