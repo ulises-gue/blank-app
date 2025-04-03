@@ -137,7 +137,7 @@ if file_available == "Si":
           
         km_mensual_new = total_distance + avg_monthly_km
         st.write('<b>Kilometros Mensuales + Nueva Operacion:</b>', f"{km_mensual_new:,.2f}", unsafe_allow_html=True)
-        per_increase = ((km_provided + avg_monthly_km) - avg_monthly_km) / avg_monthly_km
+        per_increase = ((total_distance + avg_monthly_km) - avg_monthly_km) / avg_monthly_km
         st.write('<b>Porcentaje de Incremento:</b>', f"{per_increase:.2%}", unsafe_allow_html=True)
           
         st.write('<b>KPI Mensual:</b>', f"{monthly_kpi:,.2f}", unsafe_allow_html=True)
