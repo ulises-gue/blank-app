@@ -4,7 +4,7 @@ import numpy as np
 import googlemaps
 
 # Fixed cost per km
-cost_per_km = 25.5
+cost_per_km = 25.8
 avg_monthly_km = 1100000
 monthly_kpi = 1380189.67
 
