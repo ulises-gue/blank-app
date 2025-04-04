@@ -50,7 +50,6 @@ if file_available == "Si":
         route_data["Ruta"] = route_data["Origen"] + " - " + route_data["Destino"]
         #We will cretae the distance column
         route_data["Distancia"] = route_data.apply(lambda row: get_distance_km(row["Origen"], row["Destino"]), axis=1)
-        route_data.loc[route_data["Tipo de Ruta"] == "Local", "Distancia"] = 40
         
         #We will create the route type column 
         route_data["Tipo de Ruta"] = np.where(
@@ -58,6 +57,7 @@ if file_available == "Si":
             "Local",
             np.where(route_data["Distancia"] <= 400, "Tramo Corto", "Tramo Largo")
         )
+        route_data.loc[route_data["Tipo de Ruta"] == "Local", "Distancia"] = 40
         #We will create the dircetion column
         route_data["Sentido"] = np.where(
             (
