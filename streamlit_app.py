@@ -104,6 +104,7 @@ if file_available == "Si":
                 route_data["Distancia"] * (TCR_price - 4),
                 route_data["Distancia"] * (TLS_price - 4),
                 route_data["Distancia"] * (TLR_price - 4),
+                route_data["Distancia"] * (LOCAL_price - 4),
             ]
         route_data["Precio MXN Camion Corto"] = np.select(conditions, price_values_cc, default=0)
         
@@ -112,6 +113,7 @@ if file_available == "Si":
                 route_data["Distancia"] * (TCR_price + 4),
                 route_data["Distancia"] * (TLS_price + 4),
                 route_data["Distancia"] * (TLR_price + 4),
+                route_data["Distancia"] * (LOCAL_price + 4),
             ]
         route_data["Precio MXN Plataforma"] = np.select(conditions, price_values_pf, default=0)
         
