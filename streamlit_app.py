@@ -42,6 +42,7 @@ if file_available == "Si":
         TCR_price = st.number_input("Ingresa un Precio por KM para Retornos Tramo Corto (40 - 56):")
         TLS_price = st.number_input("Ingresa un Precio por KM para Salidas Tramo Largo (30 - 38):")
         TLR_price = st.number_input("Ingresa un Precio por KM para Retornos Tramo Largo (38 - 46):")
+        LOCAL_price = st.number_input("Ingresa un Precio por KM para Rutas Locales (65 - 70):")
         
         #We will fill any null values in the frequency column with a 1
         route_data["Frequencia (Mensual)"] = route_data["Frequencia (Mensual)"].fillna(1)
@@ -49,9 +50,15 @@ if file_available == "Si":
         route_data["Ruta"] = route_data["Origen"] + " - " + route_data["Destino"]
         #We will cretae the distance column
         route_data["Distancia"] = route_data.apply(lambda row: get_distance_km(row["Origen"], row["Destino"]), axis=1)
+        route_data.loc[route_data["Tipo de Ruta"] == "Local", "Distancia"] = 40
         
         #We will create the route type column 
-        route_data["Tipo de Ruta"] = np.where(route_data["Distancia"] <= 400, "Tramo Corto", "Tramo Largo")
+        route_data["Tipo de Ruta"] = np.where(
+            route_data["Origen"] == route_data["Destino"],
+            "Local",
+            np.where(route_data["Distancia"] <= 400, "Tramo Corto", "Tramo Largo")
+        )
+        
         #We will create the dircetion column
         route_data["Sentido"] = np.where(
             (
@@ -76,6 +83,8 @@ if file_available == "Si":
                 (route_data["Tipo de Ruta"] == "Tramo Corto") & (route_data["Sentido"] == "Retorno"),
                 (route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Sentido"] == "Salida"),
                 (route_data["Tipo de Ruta"] == "Tramo Largo") & (route_data["Sentido"] == "Retorno"),
+                (route_data["Tipo de Ruta"] == "Local")
+            
             ]
             
             # Define corresponding prices
@@ -84,6 +93,7 @@ if file_available == "Si":
                 route_data["Distancia"] * TCR_price,
                 route_data["Distancia"] * TLS_price,
                 route_data["Distancia"] * TLR_price,
+                route_data["Distancia"] * LOCAL_price
             ]
             
             # Assign calculated prices
