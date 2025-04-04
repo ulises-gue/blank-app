@@ -95,7 +95,7 @@ if file_available == "Si":
                 route_data["Distancia"] * LOCAL_price
             ]
 
-        route_data.loc[route_data["Tipo de Ruta"] == "Local", "Distancia"] = 40
+     
             # Assign calculated prices
         route_data["Precio MXN Quinta"] = np.select(conditions, price_values, default=0)
         
