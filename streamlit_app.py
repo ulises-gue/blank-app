@@ -58,7 +58,6 @@ if file_available == "Si":
             "Local",
             np.where(route_data["Distancia"] <= 400, "Tramo Corto", "Tramo Largo")
         )
-        route_data.loc[route_data["Tipo de Ruta"] == "Local", "Distancia"] = 40
         #We will create the dircetion column
         route_data["Sentido"] = np.where(
             (
@@ -95,10 +94,11 @@ if file_available == "Si":
                 route_data["Distancia"] * TLR_price,
                 route_data["Distancia"] * LOCAL_price
             ]
-            
+
+        route_data.loc[route_data["Tipo de Ruta"] == "Local", "Distancia"] = 40
             # Assign calculated prices
         route_data["Precio MXN Quinta"] = np.select(conditions, price_values, default=0)
-
+        
         price_values_cc = [
                 route_data["Distancia"] * (TCS_price - 4),
                 route_data["Distancia"] * (TCR_price - 4),
