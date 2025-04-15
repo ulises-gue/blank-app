@@ -116,7 +116,15 @@ if file_available == "Si":
                 route_data["Distancia"] * (LOCAL_price + 4),
             ]
         route_data["Precio MXN Plataforma"] = np.select(conditions, price_values_pf, default=0)
-        
+        # Apply round-trip (Redondo) logic
+        if "Tipo" in route_data.columns:
+            route_data.loc[route_data["Tipo"] == "Redondo", "Distancia"] *= 2
+            route_data.loc[route_data["Tipo"] == "Redondo", "Precio MXN Quinta"] *= 0.85
+            route_data.loc[route_data["Tipo"] == "Redondo", "Precio MXN Camion Corto"] *= 0.85
+            route_data.loc[route_data["Tipo"] == "Redondo", "Precio MXN Plataforma"] *= 0.85
+        else:
+            st.warning("La columna 'Tipo' no está en el archivo. Asegúrate de incluir una columna con valores 'Sencillo' o 'Redondo'.")
+
         cotizacion = pd.DataFrame(route_data, columns = ["Ruta", "Precio MXN Quinta", "Precio MXN Camion Corto", "Precio MXN Plataforma"])
         cotizacion["Precio MXN Quinta"] = cotizacion["Precio MXN Quinta"].apply(lambda x: f"{x:,.2f}")
         cotizacion["Precio MXN Camion Corto"] = cotizacion["Precio MXN Camion Corto"].apply(lambda x: f"{x:,.2f}")
